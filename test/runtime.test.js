@@ -110,7 +110,7 @@ test('class methods used as steps retain their receiver', async (context) => {
 });
 
 test('explicit missing capabilities never fall back to another export', () => {
-  const file = path.join(__dirname, '../domain/orderAggregate.js');
+  const file = path.join(__dirname, '../domain/order.js');
   assert.throws(() => loadFactory(file, 'missing'), /Unknown capability/);
   assert.equal(loadFactory(file, 'create'), loadFactory(file, 'create'));
 });

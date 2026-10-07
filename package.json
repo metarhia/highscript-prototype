@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node main.js js",
+    "start": "node main.js js ORDER-001 book:2 pen:3",
     "start:js": "node main.js js ORDER-001 book:2 pen:3",
     "start:lisp": "node main.js lisp ORDER-001 book:2 pen:3",
     "start:md": "node main.js md ORDER-001 book:2 pen:3",

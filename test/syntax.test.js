@@ -52,6 +52,38 @@ test('pipelines and both subscription handler forms stay synchronized', () => {
   }
 });
 
+test('calls round-trip and reject unknown targets', () => {
+  const call = { call: { target: 'domain.order.create', args: [] } };
+  const read = {
+    target: 'infrastructure.config.read',
+    args: [{ literal: 'logger' }],
+  };
+  const section = { call: read };
+  const catalog = {
+    construct: {
+      target: 'application.products.ProductRepository',
+      args: [],
+    },
+  };
+  const model = {
+    infrastructure: {
+      config: { open: { fileName: { literal: 'configuration.json' } } },
+    },
+    application: {
+      purchase: { placeOrder: { order: call, section, catalog } },
+    },
+    presentation: { terminal: {} },
+  };
+  for (const syntax of SYNTAXES) {
+    assert.deepEqual(parse(format(model, syntax), syntax), model, syntax);
+    assert.doesNotThrow(() => inspect(model));
+  }
+  const exit = '({ presentation: { terminal: process.exit() } });';
+  const constructed = '({ presentation: { terminal: new process.exit() } });';
+  assert.throws(() => parse(exit, 'js'), /Unexpected call/);
+  assert.throws(() => parse(constructed, 'js'), /Unexpected call/);
+});
+
 test('JS requires commas and rejects executable expressions', () => {
   const invalid = [
     '({ presentation: {} domain: {} });',

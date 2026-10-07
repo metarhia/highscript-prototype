@@ -26,9 +26,16 @@ const parseSettings = (raw) => {
   return settings;
 };
 
-const read = async ({ fileName }) => {
-  const raw = await readText(path.resolve(__dirname, '..', fileName));
-  return parseSettings(raw);
+const open = async ({ fileName }) => {
+  const resolved = path.resolve(__dirname, '..', fileName);
+  const raw = await readText(resolved);
+  const settings = parseSettings(raw);
+  const read = (name) => {
+    const known = typeof name === 'string' && Object.hasOwn(settings, name);
+    if (!known) throw new Error(`Unknown configuration: ${name}`);
+    return settings[name];
+  };
+  return { read };
 };
 
-module.exports = { read };
+module.exports = { readText, parseSettings, open };

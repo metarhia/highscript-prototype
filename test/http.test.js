@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const os = require('node:os');
 const fs = require('node:fs/promises');
-const { open } = require('../infrastructure/server.js');
+const { create } = require('../infrastructure/server.js');
 const { parse } = require('../highscript/syntax.js');
 const { inspect } = require('../highscript/model.js');
 const {
@@ -24,7 +24,7 @@ const post = (url, body) =>
   });
 
 test('HTTP retains both response content types', async (context) => {
-  const server = open({
+  const server = create({
     console: silent,
     options: { host: '127.0.0.1', port: 0 },
   });
@@ -59,13 +59,13 @@ test('HTTP retains both response content types', async (context) => {
 });
 
 test('listen failures and released ports', async (context) => {
-  const first = open({
+  const first = create({
     console: silent,
     options: { host: '127.0.0.1', port: 0 },
   });
   context.after(() => first.close());
   const address = await first.listen();
-  const second = open({
+  const second = create({
     console: silent,
     options: {
       host: '127.0.0.1',
@@ -76,7 +76,7 @@ test('listen failures and released ports', async (context) => {
   await assert.rejects(second.listen(), { code: 'EADDRINUSE' });
   await first.close();
   await assert.rejects(first.listen(), /closed/);
-  const third = open({
+  const third = create({
     console: silent,
     options: {
       host: '127.0.0.1',
@@ -94,13 +94,13 @@ test('shared CLI/HTTP stores and isolated servers', async (context) => {
   await fs.writeFile(
     configuration,
     JSON.stringify({
-      log: path.join(temp, 'orders.log'),
+      logger: path.join(temp, 'orders.log'),
       server: { host: '127.0.0.1', port: 0 },
     }),
   );
   const source = await fs.readFile(path.join(root, 'project.js'), 'utf8');
   const model = parse(source, 'js');
-  model.infrastructure.config.read.fileName = { literal: configuration };
+  model.infrastructure.config.open.fileName = { literal: configuration };
   model.presentation.extraTerminal = model.presentation.terminal;
   const load = (file, layer, name) =>
     loadFactory(path.join(root, layer, file), name);

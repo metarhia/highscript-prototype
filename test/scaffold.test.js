@@ -74,7 +74,7 @@ test('standalone Markdown and synchronization', async (context) => {
   const md = await contents(root, 'project.md');
   await fs.writeFile(
     path.join(root, 'project.md'),
-    md.replace('orderAggregate', 'differentAggregate'),
+    md.replace('  - order\n    - create', '  - differentOrder\n    - create'),
   );
   await assert.rejects(
     execute(process.execPath, ['sync.js', '--check'], { cwd: root }),
@@ -86,7 +86,7 @@ test('standalone Markdown and synchronization', async (context) => {
 const addSummary = (model) => {
   const application = {
     ...model.application,
-    summary: { aggregate: 'domain.orderAggregate' },
+    summary: { aggregate: 'domain.order' },
   };
   return { ...model, application };
 };
@@ -97,7 +97,7 @@ const BOOTSTRAP_FILES = [
   'scaffold.js',
   'highscript/scaffold.js',
   'architecture.cache.json',
-  'domain/orderAggregate.js',
+  'domain/order.js',
   'application/purchase.js',
 ];
 
@@ -181,7 +181,7 @@ test('repeated runs preserve filled code and package files', async (context) => 
   const { root } = await setup(context);
   const source = await original();
   await apply(root, source);
-  const file = 'domain/orderAggregate.js';
+  const file = 'domain/order.js';
   const code = [
     `${QUOTE}use strict${QUOTE};`,
     'const create = () => ({ ready: true });',
@@ -273,7 +273,7 @@ test('changed input roles warn without overwriting the existing factory', async 
   const old = await contents(root, file);
   const model = parse(source, 'js');
   const purchase = model.application.purchase.placeOrder;
-  purchase.audit = 'domain.orderAggregate.create';
+  purchase.audit = 'domain.order.create';
   const report = await apply(root, encode(model));
   assert.ok(report.warnings.some((item) => item.code === 'CONTRACT_CHANGED'));
   assert.equal(await contents(root, file), old);
@@ -360,14 +360,14 @@ test('removing a referenced component warns and leaves the project intact', asyn
   await apply(root, source);
   const before = await contents(root, 'architecture.cache.json');
   const model = parse(source, 'js');
-  delete model.domain.orderAggregate;
+  delete model.domain.order;
   await assert.rejects(apply(root, encode(model)), (error) => {
     assert.match(error.message, /Unknown reference/);
     assert.ok(
       error.warnings.some(
         (item) =>
           item.code === 'COMPONENT_REMOVED' &&
-          item.component === 'domain.orderAggregate',
+          item.component === 'domain.order',
       ),
     );
     return true;
@@ -375,7 +375,7 @@ test('removing a referenced component warns and leaves the project intact', asyn
   const catalog = await contents(root, 'architecture.cache.json');
   assert.equal(catalog, before);
   assert.equal(await contents(root, 'project.js'), source);
-  assert.equal(await exists(path.join(root, 'domain/orderAggregate.js')), true);
+  assert.equal(await exists(path.join(root, 'domain/order.js')), true);
 });
 
 test('factory signatures expose capability names', () => {
@@ -413,7 +413,7 @@ test('the same component name in another layer is a separate module', async (con
   const model = parse(source, 'js');
   model.domain = {
     ...model.domain,
-    products: { source: 'domain.orderAggregate' },
+    products: { source: 'domain.order' },
   };
   const report = await apply(root, encode(model));
   assert.ok(report.created.includes('domain/products.js'));

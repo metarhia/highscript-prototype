@@ -1,7 +1,8 @@
 'use strict';
 
 const { isHashObject } = require('metautil');
-const { isLiteral } = require('./model.js');
+const model = require('./model.js');
+const { isLiteral, isCall, isConstruct, knownReference } = model;
 
 const scalar = (value) =>
   isLiteral(value) ? JSON.stringify(value.literal) : String(value);
@@ -13,6 +14,13 @@ const javascript = (value, depth = 0) => {
   if (value.subscribe) {
     const { source, event, handler } = value.subscribe;
     return `${source}.on(${scalar(event)}, ${javascript(handler, depth)})`;
+  }
+  if (isCall(value) || isConstruct(value)) {
+    const invocation = value.call ?? value.construct;
+    const { target, args } = invocation;
+    const printed = args.map((arg) => javascript(arg, depth)).join(', ');
+    const prefix = isConstruct(value) ? 'new ' : '';
+    return `${prefix}${target}(${printed})`;
   }
   const pad = '  '.repeat(depth);
   const array = Array.isArray(value);
@@ -29,6 +37,12 @@ const javascript = (value, depth = 0) => {
 };
 
 const valueForm = (value) => {
+  if (isCall(value) || isConstruct(value)) {
+    const invocation = value.call ?? value.construct;
+    const { target, args } = invocation;
+    const head = isConstruct(value) ? ['new', target] : [target];
+    return [...head, ...args.map(valueForm)];
+  }
   if (Array.isArray(value)) return ['array', ...value.map(valueForm)];
   if (isHashObject(value) && !isLiteral(value)) {
     return [
@@ -93,7 +107,26 @@ const lispForm = (value, depth = 0) => {
     .join('\n')})`;
 };
 
+const isInlineCall = (value) =>
+  Array.isArray(value) && knownReference(value[0]) && !value[0].endsWith('.on');
+
+const isConstructForm = (value) =>
+  Array.isArray(value) && value[0] === 'new' && knownReference(value[1]);
+
+const parenthesized = (value) => isInlineCall(value) || isConstructForm(value);
+
+const markdownCall = (value) => {
+  const [target, ...args] = value;
+  const printed = args.map((arg) =>
+    parenthesized(arg) ? `(${markdownCall(arg)})` : scalar(arg),
+  );
+  return [target, ...printed].join(' ');
+};
+
 const markdownForm = (value, depth) => {
+  if (parenthesized(value)) {
+    return [`${'  '.repeat(depth)}- (${markdownCall(value)})`];
+  }
   if (Array.isArray(value) && Array.isArray(value[0])) {
     return value.flatMap((item) => markdownForm(item, depth));
   }

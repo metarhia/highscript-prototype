@@ -11,9 +11,12 @@ const { compile, assemble, loadFactory } = require('../highscript/wiring.js');
 const { start } = require('../highscript/start.js');
 const { capabilityPorts } = require('../highscript/model.js');
 const { catalog } = require('../architecture.cache.json').js;
-const aggregate = require('../domain/orderAggregate.js');
+const aggregate = require('../domain/order.js');
 const { create: createOrder } = aggregate;
-const { OrderRepository } = require('../application/orders.js');
+const productsModule = require('../application/products.js');
+const ordersModule = require('../application/orders.js');
+const { ProductRepository } = productsModule;
+const { OrderRepository } = ordersModule;
 
 const QUOTE = String.fromCharCode(39);
 
@@ -94,7 +97,10 @@ test('aggregate copies its lines and protects monetary invariants', () => {
 });
 
 test('repository snapshots cannot mutate stored state', async () => {
-  const orders = new OrderRepository();
+  const orders = ordersModule.getInstance();
+  const products = productsModule.getInstance();
+  assert.equal(orders instanceof OrderRepository, true);
+  assert.equal(products instanceof ProductRepository, true);
   const placed = { id: 'ORDER-001', lines: [{ quantity: 1 }] };
   await orders.save(placed);
   placed.lines[0].quantity = 9;
@@ -126,10 +132,12 @@ test('compiler rejects unknown, missing and cyclic bindings', async () => {
 test('binding selects a different provider', async (context) => {
   const source = await model();
   const graph = compile(source, catalog);
-  const load = (name, layer, capability) =>
-    name === 'products.js'
-      ? () => ({ find: async (sku) => ({ sku, priceCents: 100 }) })
-      : loadFactory(path.join(__dirname, '..', layer, name), capability);
+  const load = (name, layer, capability) => {
+    if (name !== 'products.js') {
+      return loadFactory(path.join(__dirname, '..', layer, name), capability);
+    }
+    return () => ({ find: async (sku) => ({ sku, priceCents: 100 }) });
+  };
   const application = await assemble(graph, load);
   context.after(() => application.close());
   const output = JSON.parse(await application.run(['ORDER-001', 'book:2']));

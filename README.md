@@ -49,9 +49,9 @@ A component normally maps to `<layer>/<component>.js`.
 application: {
   purchase: {
     placeOrder: {
-      order: domain.orderAggregate.create,
-      catalog: application.products.ProductRepository,
-      orders: application.orders.OrderRepository,
+      order: domain.order.create(),
+      catalog: application.products.getInstance(),
+      orders: application.orders.getInstance(),
     },
   },
 },
@@ -82,17 +82,22 @@ the current signature reader. Classes without an explicit constructor have no
 inferred ports. Domain and application modules do not import their peers.
 Infrastructure may import the shared platform channel.
 
-| Reference                             | Resolution                             |
-| ------------------------------------- | -------------------------------------- |
-| `application.purchase.placeOrder`     | Result of the named factory            |
-| `infrastructure.config.read.server`   | Field of the configuration result      |
-| `infrastructure.cli`                  | The component's sole capability result |
-| A component with several capabilities | Object keyed by capability name        |
+| Form                                   | Resolution                             |
+| -------------------------------------- | -------------------------------------- |
+| `domain.order.create()`                | Result of the named factory            |
+| `infrastructure.config.read('server')` | Method call on the configuration       |
+| `infrastructure.logger.getInstance()`  | Method call on the logger              |
+| `application.purchase.placeOrder`      | Result of the named factory            |
+| `infrastructure.cli`                   | The component's sole capability result |
+| A component with several capabilities  | Object keyed by capability name        |
 
-References may continue through nested fields. Method references retain their
-receiver, including class methods using private fields. Missing capabilities
-fail explicitly. Component dependency cycles are rejected, including references
-between factories inside the same component.
+A call with no arguments selects a capability result when that result is not a
+function. `new` selects the instance already constructed for a class
+capability. A call with arguments runs the named method and keeps its receiver,
+including class methods that use private fields. References may continue
+through nested fields. Missing capabilities fail explicitly. Component
+dependency cycles are rejected, including references between factories inside
+the same component.
 
 An empty component or a flat port map also remains supported. For those forms,
 the loader selects `init`, `create`, `open`, the module basename, or the sole
@@ -164,8 +169,9 @@ references. Quoted strings are literal values, even when they contain dots.
 
 All three representations support objects, arrays, strings with JSON escapes,
 finite numbers, booleans and null. JS additionally accepts comments and trailing
-commas. Only the two-argument `.on(event, handler)` call form is interpreted.
-Imports, arbitrary expressions and executable callbacks are not supported.
+commas. A call names a reference and passes literals or references. The
+two-argument `.on(event, handler)` form subscribes to a channel. Imports,
+arbitrary expressions and executable callbacks are not supported.
 
 Lisp uses `(layer ...)` forms. Nested port values use `(object ...)` and
 `(array ...)`; pipelines use `(pipe ...)`. Markdown uses the corresponding

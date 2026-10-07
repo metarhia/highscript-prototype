@@ -16,6 +16,24 @@ const knownReference = (value) =>
   REFERENCE.test(value) &&
   LAYERS.includes(value.split('.')[0]);
 
+const isInvocation = (value, name) => {
+  if (!isHashObject(value) || Object.keys(value).length !== 1) return false;
+  const invocation = value[name];
+  if (!isHashObject(invocation) || isLiteral(invocation)) return false;
+  const fields = Object.keys(invocation);
+  const shaped =
+    fields.length === 2 &&
+    Object.hasOwn(invocation, 'target') &&
+    Object.hasOwn(invocation, 'args');
+  const target = invocation.target;
+  const args = invocation.args;
+  return shaped && typeof target === 'string' && Array.isArray(args);
+};
+
+const isCall = (value) => isInvocation(value, 'call');
+
+const isConstruct = (value) => isInvocation(value, 'construct');
+
 const componentId = (reference) => reference.split('.').slice(0, 2).join('.');
 
 const validValue = (value) => {
@@ -25,6 +43,11 @@ const validValue = (value) => {
   if (typeof value === 'number') return Number.isFinite(value);
   if (typeof value === 'string') return knownReference(value);
   if (Array.isArray(value)) return value.every(validValue);
+  if (isCall(value) || isConstruct(value)) {
+    const invocation = value.call ?? value.construct;
+    const { target, args } = invocation;
+    return knownReference(target) && args.every(validValue);
+  }
   return (
     isHashObject(value) &&
     Object.entries(value).every(
@@ -76,7 +99,13 @@ const componentNode = (layer, name, value) => {
   const entries = Object.entries(value);
   const hasExports =
     entries.length > 0 &&
-    entries.every(([, ports]) => isHashObject(ports) && !isLiteral(ports));
+    entries.every(
+      ([, ports]) =>
+        isHashObject(ports) &&
+        !isLiteral(ports) &&
+        !isCall(ports) &&
+        !isConstruct(ports),
+    );
   const base = {
     id,
     layer,
@@ -161,4 +190,7 @@ module.exports = {
   componentId,
   cited,
   isLiteral,
+  isCall,
+  isConstruct,
+  knownReference,
 };

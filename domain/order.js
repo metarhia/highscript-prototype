@@ -41,4 +41,4 @@ const create = () => {
   return { place };
 };
 
-module.exports = { create };
+module.exports = { lineOf, create };

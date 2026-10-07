@@ -11,7 +11,7 @@ const parseLine = (token) => {
   return { sku, quantity: Number(count) };
 };
 
-const open = () => {
+const init = () => {
   const channel = new Channel();
   const run = async (args) => {
     const [id, ...tokens] = args;
@@ -30,4 +30,4 @@ const open = () => {
   };
 };
 
-module.exports = { open };
+module.exports = { parseLine, init };

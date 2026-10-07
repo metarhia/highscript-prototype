@@ -112,6 +112,6 @@ class Server {
   }
 }
 
-const open = ({ console, options }) => new Server({ console, options });
+const create = ({ console, options }) => new Server({ console, options });
 
-module.exports = { open };
+module.exports = { reply, handleCall, create, Server };

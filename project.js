@@ -1,34 +1,34 @@
 ({
   domain: {
-    orderAggregate: {
+    order: {
       create: {},
     },
   },
   infrastructure: {
     config: {
-      read: { fileName: 'configuration.json' },
+      open: { fileName: 'configuration.json' },
     },
     logger: {
-      open: { fileName: infrastructure.config.read.log },
+      open: { fileName: infrastructure.config.read('logger') },
     },
     cli: {
-      open: {},
+      init: {},
     },
     server: {
-      open: {
-        console: infrastructure.logger.open,
-        options: infrastructure.config.read.server,
+      create: {
+        console: infrastructure.logger.getInstance(),
+        options: infrastructure.config.read('server'),
       },
     },
   },
   application: {
-    products: { ProductRepository: {} },
-    orders: { OrderRepository: {} },
+    products: { getInstance: {} },
+    orders: { getInstance: {} },
     purchase: {
       placeOrder: {
-        order: domain.orderAggregate.create,
-        catalog: application.products.ProductRepository,
-        orders: application.orders.OrderRepository,
+        order: domain.order.create(),
+        catalog: application.products.getInstance(),
+        orders: application.orders.getInstance(),
       },
     },
   },

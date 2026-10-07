@@ -23,4 +23,6 @@ class ProductRepository {
   }
 }
 
-module.exports = { ProductRepository };
+const getInstance = () => new ProductRepository();
+
+module.exports = { getInstance, ProductRepository };

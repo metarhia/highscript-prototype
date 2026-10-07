@@ -1,29 +1,35 @@
 - domain
-  - orderAggregate
+  - order
     - create
 - infrastructure
   - config
-    - read
+    - open
       - fileName "configuration.json"
   - logger
     - open
-      - fileName infrastructure.config.read.log
+      - fileName
+        - (infrastructure.config.read "logger")
   - cli
-    - open
+    - init
   - server
-    - open
-      - console infrastructure.logger.open
-      - options infrastructure.config.read.server
+    - create
+      - console
+        - (infrastructure.logger.getInstance)
+      - options
+        - (infrastructure.config.read "server")
 - application
   - products
-    - ProductRepository
+    - getInstance
   - orders
-    - OrderRepository
+    - getInstance
   - purchase
     - placeOrder
-      - order domain.orderAggregate.create
-      - catalog application.products.ProductRepository
-      - orders application.orders.OrderRepository
+      - order
+        - (domain.order.create)
+      - catalog
+        - (application.products.getInstance)
+      - orders
+        - (application.orders.getInstance)
 - presentation
   - terminal
     - infrastructure.cli.on "call"

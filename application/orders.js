@@ -15,4 +15,6 @@ class OrderRepository {
   }
 }
 
-module.exports = { OrderRepository };
+const getInstance = () => new OrderRepository();
+
+module.exports = { getInstance, OrderRepository };

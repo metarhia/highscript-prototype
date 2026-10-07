@@ -8,11 +8,13 @@ const { mkdtemp, writeFile, rm } = require('node:fs/promises');
 
 const { Channel } = require('../highscript/channel.js');
 const { readLine } = require('../application/purchase.js');
-const { lineOf } = require('../domain/orderAggregate.js');
+const { lineOf } = require('../domain/order.js');
 const { parseLine } = require('../infrastructure/cli.js');
-const { readText, parseSettings } = require('../infrastructure/config.js');
+const config = require('../infrastructure/config.js');
+const { readText, parseSettings } = config;
+const logs = require('../infrastructure/logger.js');
 const server = require('../infrastructure/server.js');
-const { reply, handleCall, open, Server } = server;
+const { reply, handleCall, create, Server } = server;
 
 const silent = { log: async () => {}, error: async () => {} };
 
@@ -139,6 +141,23 @@ test('readText reports a missing file and other errors', async (context) => {
   await assert.rejects(readText(root), (error) => error.code === 'EISDIR');
 });
 
+test('configuration read returns a named section', async (context) => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'config-'));
+  context.after(() => rm(root, { recursive: true, force: true }));
+  const fileName = path.join(root, 'settings.json');
+  const server = { host: '127.0.0.1', port: 0 };
+  const raw = JSON.stringify({ logger: 'orders.log', server });
+  await writeFile(fileName, raw);
+  const settings = await config.open({ fileName });
+  assert.equal(settings.read('logger'), 'orders.log');
+  assert.deepEqual(settings.read('server'), server);
+  assert.throws(() => settings.read('missing'), /Unknown configuration/);
+  const logFile = path.join(root, 'orders.log');
+  const logger = logs.open({ fileName: logFile });
+  assert.equal(logger.getInstance(), logger);
+  await logger.close();
+});
+
 test('parseSettings accepts an object and rejects other input', () => {
   assert.deepEqual(parseSettings('{"server":{"port":3000}}'), {
     server: { port: 3000 },
@@ -242,7 +261,7 @@ test('server rejects a bad endpoint and a repeated close', async (context) => {
       /Expected host and port/,
     );
   }
-  const opened = open({ console: silent, options });
+  const opened = create({ console: silent, options });
   context.after(() => opened.close());
   assert.equal(opened instanceof Server, true);
   for (const port of [0, 65535]) {

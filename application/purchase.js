@@ -27,4 +27,4 @@ const placeOrder = ({ order, catalog, orders }) => {
   return place;
 };
 
-module.exports = { placeOrder };
+module.exports = { readLine, placeOrder };

@@ -21,7 +21,12 @@ const open = ({ fileName }) => {
   const methods = Object.fromEntries(
     LEVELS.map((level) => [level, (...values) => emit(level, values)]),
   );
-  return Object.freeze({ ...methods, close: () => pending });
+  const logger = {
+    ...methods,
+    close: () => pending,
+    getInstance: () => logger,
+  };
+  return Object.freeze(logger);
 };
 
 module.exports = { open };

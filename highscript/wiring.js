@@ -9,6 +9,8 @@ const {
   componentId,
   cited,
   isLiteral,
+  isCall,
+  isConstruct,
 } = require('./model.js');
 
 const selectFactory = (exported, file, name) => {
@@ -80,17 +82,17 @@ const checkContract = (node, catalog) => {
 const checkLink = (nodes, link) => {
   const target = nodes.get(componentId(link));
   if (!target) throw new Error(`Unknown reference: ${link}`);
-  const [, , name, ...members] = link.split('.');
-  if (
-    [name, ...members].some((part) =>
-      ['constructor', 'prototype', '__proto__'].includes(part),
-    )
-  ) {
+  const parts = link.split('.').slice(2);
+  const blocked = ['constructor', 'prototype', '__proto__'];
+  if (parts.some((part) => blocked.includes(part))) {
     throw new Error(`Invalid reference: ${link}`);
   }
-  if (name && target.exports && !Object.hasOwn(target.exports, name)) {
-    throw new Error(`Unknown reference: ${link}`);
-  }
+  const [name] = parts;
+  if (!name || !target.exports) return;
+  const names = Object.keys(target.exports);
+  const named = Object.hasOwn(target.exports, name);
+  if (named || names.length === 1) return;
+  throw new Error(`Unknown reference: ${link}`);
 };
 
 const orderGraph = ({ entries }, nodes) => {
@@ -141,14 +143,33 @@ const fieldOf = (value, keys, reference) => {
   return keys.length && typeof value === 'function' ? value.bind(owner) : value;
 };
 
+const resolveReference = (instances, reference) => {
+  const record = instances.get(componentId(reference));
+  if (!record) throw new Error(`Unknown reference: ${reference}`);
+  const keys = reference.split('.').slice(2);
+  const [name] = keys;
+  const named = name && record.exports && Object.hasOwn(record.exports, name);
+  const root = named ? record.exports : record.value;
+  return fieldOf(root, keys, reference);
+};
+
 const resolveValue = (instances, value) => {
-  if (typeof value === 'string') {
-    const record = instances.get(componentId(value));
-    if (!record) throw new Error(`Unknown reference: ${value}`);
-    const keys = value.split('.').slice(2);
-    const root = keys.length && record.exports ? record.exports : record.value;
-    return fieldOf(root, keys, value);
+  if (isCall(value) || isConstruct(value)) {
+    const construct = isConstruct(value);
+    const invocation = construct ? value.construct : value.call;
+    const { target, args } = invocation;
+    const receiver = resolveReference(instances, target);
+    const parameters = args.map((item) => resolveValue(instances, item));
+    if (typeof receiver !== 'function') {
+      if (parameters.length === 0) return receiver;
+      const expected = construct ? 'constructor' : 'callable';
+      throw new Error(`Expected ${expected}: ${target}`);
+    }
+    if (!construct) return receiver(...parameters);
+    const Class = receiver;
+    return new Class(...parameters);
   }
+  if (typeof value === 'string') return resolveReference(instances, value);
   if (isLiteral(value)) return value.literal;
   if (Array.isArray(value)) {
     return value.map((item) => resolveValue(instances, item));

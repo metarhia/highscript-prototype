@@ -1,7 +1,7 @@
 'use strict';
 
 const { isHashObject } = require('metautil');
-const { isLiteral } = require('./model.js');
+const { isLiteral, knownReference } = require('./model.js');
 
 const TOKEN = [
   /\s+|\/\/[^\r\n]*|\/\*[\s\S]*?\*\//,
@@ -96,23 +96,30 @@ const javascriptValue = (input) => {
     );
   }
   if (token === '[') return delimited(input, '[', ']', read);
+  if (token === 'new') {
+    input.take('new');
+    const target = input.take();
+    if (input.peek() !== '(') throw new Error('Unexpected call');
+    const args = delimited(input, '(', ')', read);
+    if (!knownReference(target)) throw new Error('Unexpected call');
+    return { construct: { target, args } };
+  }
   const value = atom(input.take());
   if (input.peek() !== '(') return value;
   const args = delimited(input, '(', ')', read);
-  if (
-    typeof value !== 'string' ||
-    !value.endsWith('.on') ||
-    args.length !== 2
-  ) {
-    throw new Error('Unexpected call');
+  if (typeof value !== 'string') throw new Error('Unexpected call');
+  if (value.endsWith('.on')) {
+    if (args.length !== 2) throw new Error('Unexpected call');
+    return {
+      subscribe: {
+        source: value.slice(0, -3),
+        event: args[0],
+        handler: args[1],
+      },
+    };
   }
-  return {
-    subscribe: {
-      source: value.slice(0, -3),
-      event: args[0],
-      handler: args[1],
-    },
-  };
+  if (!knownReference(value)) throw new Error('Unexpected call');
+  return { call: { target: value, args } };
 };
 
 const javascript = (source) => {
@@ -147,6 +154,15 @@ const valueOf = (value) => {
         return [pair[0], valueOf(pair[1])];
       }),
     );
+  }
+  if (kind === 'new') {
+    const target = items[0];
+    if (!knownReference(target)) throw new Error('Unexpected call');
+    const args = items.slice(1).map(valueOf);
+    return { construct: { target, args } };
+  }
+  if (knownReference(kind)) {
+    return { call: { target: kind, args: items.map(valueOf) } };
   }
   throw new Error('Expected array or object value');
 };
