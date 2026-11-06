@@ -411,12 +411,14 @@ const SHAPES = {
   requirement: ['{{', '}}'],
 };
 const ARROWS = { remote: '==>', actor: '-->', use: '-->', via: '-.->' };
-// GitHub's flowchart look paints a light drop shadow on some shapes. The
-// same shapes, and the label chip under an arrow, stay flat. Grouping
-// blocks and edge labels are unfilled, so the page shows through. The host
-// theme colours the label text; node colours stay on the nodes. bumpX
-// keeps arrows from fanning across the diagram; spacing is the gap between
-// columns (rank) and between stacked parts (node).
+// GitHub's flowchart look paints a light drop shadow on some shapes. Those
+// shapes stay flat, and grouping blocks stay unfilled so the page shows
+// through. An arrow label takes the page colour: that opens a gap in the
+// stroke where the text sits on the line, and disappears where the curve
+// already carries the label beside it. The host theme colours the label
+// text; node colours stay on the nodes. bumpX keeps arrows from fanning
+// across the diagram; spacing is the gap between columns (rank) and
+// between stacked parts (node).
 const FLAT = [
   '.node rect',
   '.node circle',
@@ -431,6 +433,8 @@ const FLAT = [
   '[data-look=neo].node .outer-path',
   '[data-look=neo].cluster rect',
 ].join(',');
+const LABEL = ['.labelBkg', '.edgeLabel span', '.edgeLabel p'].join(',');
+const PAGE = 'var(--bgColor-default,Canvas)';
 const THEME = {
   look: 'classic',
   flowchart: {
@@ -451,7 +455,7 @@ const THEME = {
     dropShadow: 'none',
   },
   themeCSS:
-    '.labelBkg{background-color:transparent;}' +
+    `${LABEL}{background-color:${PAGE}!important;}` +
     `${FLAT}{filter:none !important;}`,
 };
 
@@ -766,7 +770,7 @@ h2 { font-size: 19px; margin: 40px 0 4px; }
 code { font: 13px ui-monospace, monospace; }
 .mermaid { margin: 12px 0 0; padding: 16px 12px; overflow-x: auto;
   border: 1px solid var(--line); border-radius: 8px;
-  background: #f7f8fa; color-scheme: light; }
+  background: #f7f8fa; color-scheme: light; --bgColor-default: #f7f8fa; }
 </style>
 </head>
 <body>

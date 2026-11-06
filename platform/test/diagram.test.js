@@ -98,7 +98,10 @@ test('mermaid marks private, design-only, external parts', () => {
   assert.match(text, /"edgeLabelBackground":"transparent"/);
   assert.match(text, /"nodeShadow":false/);
   assert.match(text, /"dropShadow":"none"/);
-  assert.match(text, /\.labelBkg\{background-color:transparent;\}/);
+  assert.match(
+    text,
+    /background-color:var\(--bgColor-default,Canvas\)!important/,
+  );
   assert.match(text, /filter:none !important/);
   assert.match(text, /subgraph n_Shop_Api \["Api#160;·#160;application"\]/);
   assert.match(text, /direction TB\n {4}n_Shop_Api_server\(/);
