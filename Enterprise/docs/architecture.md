@@ -11,7 +11,7 @@ Generated from DSL by `highscript diagram`, do not edit. In diagrams:
 Enterprise with its parts expanded one level deeper.
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v0_actor_Accountant(["Accountant"]):::actor
   v0_actor_Customer(["Customer"]):::actor
@@ -61,7 +61,7 @@ flowchart LR
 enterprise, `Enterprise/enterprise.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v1_actor_Customer(["Customer"]):::actor
   v1_actor_Merchant(["Merchant"]):::actor
@@ -96,7 +96,7 @@ flowchart LR
 solution, `Enterprise/PaymentSystem/solution.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v2_actor_Accountant(["Accountant"]):::actor
   v2_actor_Customer(["Customer"]):::actor
@@ -135,7 +135,7 @@ flowchart LR
 application, `Enterprise/PaymentSystem/WebClient/application.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v3_actor_Customer(["Customer"]):::actor
   v3_actor_Merchant(["Merchant"]):::actor
@@ -165,7 +165,7 @@ flowchart LR
 application, `Enterprise/PaymentSystem/MobileClient/application.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v4_actor_Customer(["Customer"]):::actor
   subgraph v4_Enterprise_PaymentSystem_MobileClient ["MobileClient#160;·#160;application"]
@@ -189,7 +189,7 @@ flowchart LR
 application, `Enterprise/PaymentSystem/Terminal/application.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v5_actor_Merchant(["Merchant"]):::actor
   v5_actor_Administrator(["Administrator"]):::actor
@@ -215,7 +215,7 @@ flowchart LR
 application, `Enterprise/PaymentSystem/PaymentProcessing/application.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v6_Enterprise_PaymentSystem_MobileClient[["MobileClient<br/>application · no code"]]:::external
   v6_Enterprise_PaymentSystem_Terminal[["Terminal<br/>application · no code"]]:::external
@@ -262,7 +262,7 @@ flowchart LR
 service, `Enterprise/PaymentSystem/PaymentProcessing/PaymentService/service.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v7_Enterprise_PaymentSystem_PaymentProcessing_server[["PaymentProcessing.server<br/>Payments · http-json"]]:::external
   v7_Enterprise_PaymentSystem_PaymentProcessing_webhook[["PaymentProcessing.webhook<br/>handleWebhook · http-webhook"]]:::external
@@ -309,7 +309,7 @@ flowchart LR
 component, `Enterprise/PaymentSystem/PaymentProcessing/PaymentService/persistence/component.js`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v8_Enterprise_PaymentSystem_PaymentProcessing_PaymentService_createPayment[["PaymentService.createPayment<br/>Payments v2"]]:::external
   v8_Enterprise_PaymentSystem_PaymentProcessing_PaymentService_confirmPayment[["PaymentService.confirmPayment<br/>Payments v2"]]:::external
@@ -347,7 +347,7 @@ flowchart LR
 solution, `Enterprise/CurrencyExchange/solution.md`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v9_Enterprise_PaymentSystem[["PaymentSystem<br/>solution"]]:::external
   subgraph v9_Enterprise_CurrencyExchange ["CurrencyExchange#160;·#160;solution"]
@@ -369,7 +369,7 @@ flowchart LR
 application, `Enterprise/CurrencyExchange/ExchangeMock/application.md`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v10_Enterprise_PaymentSystem[["PaymentSystem<br/>solution"]]:::external
   subgraph v10_Enterprise_CurrencyExchange_ExchangeMock ["ExchangeMock#160;·#160;application"]
@@ -399,7 +399,7 @@ flowchart LR
 solution, `Enterprise/PaymentGateway/solution.lisp`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v11_actor_Operator(["Operator"]):::actor
   subgraph v11_Enterprise_PaymentGateway ["PaymentGateway#160;·#160;solution"]
@@ -424,7 +424,7 @@ flowchart LR
 application, `Enterprise/PaymentGateway/GatewayMock/application.lisp`
 
 ```mermaid
-%%{init: {"theme":"base","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14},"themeVariables":{"primaryColor":"#eef0f3","primaryTextColor":"#1d232c","primaryBorderColor":"#7c8697","lineColor":"#6b7586","textColor":"#1d232c","titleColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"#f7f8fa","clusterBorder":"#c5ced9","edgeLabelBackground":"#f7f8fa"}}}%%
+%%{init: {"look":"classic","flowchart":{"curve":"bumpX","nodeSpacing":28,"rankSpacing":56,"padding":14,"look":"classic"},"themeVariables":{"lineColor":"#6b7586","arrowheadColor":"#6b7586","fontFamily":"ui-sans-serif, system-ui, sans-serif","clusterBkg":"transparent","clusterBorder":"#c5ced9","edgeLabelBackground":"transparent","nodeShadow":false,"dropShadow":"none"},"themeCSS":".labelBkg{background-color:transparent;}.node rect,.node circle,.node ellipse,.node polygon,.node path,.cluster rect,[data-look=neo].node rect,[data-look=neo].node circle,[data-look=neo].node polygon,[data-look=neo].node path,[data-look=neo].node .outer-path,[data-look=neo].cluster rect{filter:none !important;}"}}%%
 flowchart LR
   v12_actor_Operator(["Operator"]):::actor
   subgraph v12_Enterprise_PaymentGateway_GatewayMock ["GatewayMock#160;·#160;application"]

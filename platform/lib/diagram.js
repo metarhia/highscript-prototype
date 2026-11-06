@@ -411,29 +411,48 @@ const SHAPES = {
   requirement: ['{{', '}}'],
 };
 const ARROWS = { remote: '==>', actor: '-->', use: '-->', via: '-.->' };
-// Light plate: node text, titles and edge labels stay readable on a dark
-// page. bumpX keeps arrows from fanning across the diagram; spacing is the
-// gap between columns (rank) and between stacked parts (node).
+// GitHub's flowchart look paints a light drop shadow on some shapes. The
+// same shapes, and the label chip under an arrow, stay flat. Grouping
+// blocks and edge labels are unfilled, so the page shows through. The host
+// theme colours the label text; node colours stay on the nodes. bumpX
+// keeps arrows from fanning across the diagram; spacing is the gap between
+// columns (rank) and between stacked parts (node).
+const FLAT = [
+  '.node rect',
+  '.node circle',
+  '.node ellipse',
+  '.node polygon',
+  '.node path',
+  '.cluster rect',
+  '[data-look=neo].node rect',
+  '[data-look=neo].node circle',
+  '[data-look=neo].node polygon',
+  '[data-look=neo].node path',
+  '[data-look=neo].node .outer-path',
+  '[data-look=neo].cluster rect',
+].join(',');
 const THEME = {
-  theme: 'base',
+  look: 'classic',
   flowchart: {
     curve: 'bumpX',
     nodeSpacing: 28,
     rankSpacing: 56,
     padding: 14,
+    look: 'classic',
   },
   themeVariables: {
-    primaryColor: '#eef0f3',
-    primaryTextColor: '#1d232c',
-    primaryBorderColor: '#7c8697',
     lineColor: '#6b7586',
-    textColor: '#1d232c',
-    titleColor: '#6b7586',
+    arrowheadColor: '#6b7586',
     fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-    clusterBkg: '#f7f8fa',
+    clusterBkg: 'transparent',
     clusterBorder: '#c5ced9',
-    edgeLabelBackground: '#f7f8fa',
+    edgeLabelBackground: 'transparent',
+    nodeShadow: false,
+    dropShadow: 'none',
   },
+  themeCSS:
+    '.labelBkg{background-color:transparent;}' +
+    `${FLAT}{filter:none !important;}`,
 };
 
 const text = (value) => String(value).replace(/"/g, '#quot;');

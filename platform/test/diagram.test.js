@@ -89,7 +89,17 @@ test('views of every level: actors, remote calls, via, requirements', () => {
 test('mermaid marks private, design-only, external parts', () => {
   const model = highscript.load(writeTree(FILES, 'Shop'));
   const text = highscript.diagram(model, 'Shop.Api');
-  assert.match(text, /^%%\{init: \{"theme":"base".*\}%%\nflowchart LR\n/);
+  assert.match(
+    text,
+    /^%%\{init: \{"look":"classic","flowchart":\{"curve":"bumpX"/,
+  );
+  assert.match(text, /"look":"classic"/);
+  assert.match(text, /"clusterBkg":"transparent"/);
+  assert.match(text, /"edgeLabelBackground":"transparent"/);
+  assert.match(text, /"nodeShadow":false/);
+  assert.match(text, /"dropShadow":"none"/);
+  assert.match(text, /\.labelBkg\{background-color:transparent;\}/);
+  assert.match(text, /filter:none !important/);
   assert.match(text, /subgraph n_Shop_Api \["Api#160;·#160;application"\]/);
   assert.match(text, /direction TB\n {4}n_Shop_Api_server\(/);
   assert.match(text, /n_Shop_Api_server\("server<br\/>Orders · http-json"\)/);
