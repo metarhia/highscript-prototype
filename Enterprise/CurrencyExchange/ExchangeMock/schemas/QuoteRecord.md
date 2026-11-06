@@ -1,0 +1,16 @@
+- quoteId "string"
+- from
+  - enum ["USD" "EUR" "UAH"]
+- to
+  - enum ["USD" "EUR" "UAH"]
+- rate "number"
+- sourceMinor
+  - type "number"
+  - validate lib.SchemaRules.positiveMinor
+- amountMinor
+  - type "number"
+  - validate lib.SchemaRules.positiveMinor
+- expiresAt "string"
+- createdAt "string"
+- identity
+  - primary ["quoteId"]

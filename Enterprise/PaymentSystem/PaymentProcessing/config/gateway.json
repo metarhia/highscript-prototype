@@ -1,0 +1,6 @@
+{
+  "url": "http://127.0.0.1:7081/api",
+  "token": "dev-gateway-token",
+  "webhookSecret": "dev-webhook-secret",
+  "timeoutMs": 5000
+}

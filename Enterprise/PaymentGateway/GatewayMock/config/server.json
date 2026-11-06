@@ -1,0 +1,11 @@
+{
+  "host": "127.0.0.1",
+  "port": 7081,
+  "basePath": "/api",
+  "token": "dev-gateway-token",
+  "errorStatus": {
+    "PAYMENT_NOT_FOUND": 404,
+    "INVALID_STATE": 409,
+    "GATEWAY_FAILURE": 402
+  }
+}

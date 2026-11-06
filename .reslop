@@ -1,0 +1,9 @@
+{
+  "agents": {
+    "codex": {
+      "model": "gpt-6-astra",
+      "effort": "medium"
+    }
+  },
+  "lastAgent": "codex"
+}

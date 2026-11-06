@@ -1,0 +1,5 @@
+{
+  "url": "http://127.0.0.1:7080/webhook",
+  "secret": "dev-webhook-secret",
+  "timeoutMs": 3000
+}

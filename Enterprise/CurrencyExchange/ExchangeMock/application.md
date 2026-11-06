@@ -1,0 +1,8 @@
+- exposes
+  - server
+    - contract contracts.CurrencyExchange
+    - transport "http-json"
+    - open
+      - options config.server
+      - logger
+      - api rates

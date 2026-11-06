@@ -1,0 +1,1 @@
+({ paymentId: 'string', idempotencyKey: 'string' });

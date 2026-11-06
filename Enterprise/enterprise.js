@@ -1,0 +1,3 @@
+({
+  exposes: { PaymentSystem },
+});

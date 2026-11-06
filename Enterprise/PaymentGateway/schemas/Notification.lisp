@@ -1,0 +1,7 @@
+(eventId "string")
+(gatewayPaymentId "string")
+(status (enum ["created" "confirmed" "cancelled" "refunded"]))
+(attempts "number")
+(delivered "boolean")
+(accepted "?boolean")
+(lastError "?string")

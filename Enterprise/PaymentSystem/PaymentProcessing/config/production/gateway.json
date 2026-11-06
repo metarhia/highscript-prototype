@@ -1,0 +1,5 @@
+{
+  "url": "https://gateway.example.com/api",
+  "token": "set-at-deployment",
+  "webhookSecret": "set-at-deployment"
+}

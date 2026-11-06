@@ -1,0 +1,18 @@
+{
+  "name": "highscript",
+  "version": "0.2.0",
+  "description": "Engine for the self-similar architectural DSL: loader, planner, runtime, adapters",
+  "private": true,
+  "license": "MIT",
+  "main": "lib/index.js",
+  "bin": {
+    "highscript": "bin/highscript.js"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./*": "./adapters/*.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

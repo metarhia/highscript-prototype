@@ -1,0 +1,6 @@
+{
+  "delayMs": 50,
+  "retries": 3,
+  "retryDelayMs": 200,
+  "declinedTokens": ["tok_declined"]
+}

@@ -1,0 +1,8 @@
+(gatewayPaymentId "string")
+(paymentId "string")
+(merchantId "string")
+(amountMinor (type "number") (validate lib.SchemaRules.positiveMinor))
+(currency (enum ["USD" "EUR" "UAH"]))
+(status (enum ["created" "confirmed" "cancelled" "refunded"]))
+(refundedMinor (type "number") (validate lib.SchemaRules.nonNegativeMinor))
+(createdAt "string")
